@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "flights")
+@Entity
+@Table(name = "flights")
 public class Flight {
 
     @Id
@@ -23,7 +24,12 @@ public class Flight {
     private String departureTime;
 
     @JsonIgnoreProperties({"flights"})
-    @ManyToMany(mappedBy = "flights")
+    @ManyToMany
+    @JoinTable(
+            name = "bookings",
+            joinColumns = @JoinColumn(name = "flight_id"),
+            inverseJoinColumns = @JoinColumn(name = "passenger_id")
+    )
     private List<Passenger> passengers;
 
     public Flight(String destination, int capacity, String departureDate, String departureTime) {
