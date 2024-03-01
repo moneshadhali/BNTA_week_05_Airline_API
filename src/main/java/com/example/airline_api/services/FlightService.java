@@ -1,7 +1,7 @@
 package com.example.airline_api.services;
 
 import com.example.airline_api.models.Flight;
-import com.example.airline_api.models.FlightDTO;
+import com.example.airline_api.models.BookingDTO;
 import com.example.airline_api.models.Passenger;
 import com.example.airline_api.repositories.FlightRepository;
 import com.example.airline_api.repositories.PassengerRepository;
@@ -31,9 +31,9 @@ public class FlightService {
         return flightRepository.save(flight);
     }
 
-    public Flight addPassengerToFlight(FlightDTO flightDTO, Long id) {
+    public Flight addPassengerToFlight(BookingDTO bookingDTO, Long id) {
         Flight flight = flightRepository.findById(id).get();
-        for (Long pID : flightDTO.getPassengerID()){
+        for (Long pID : bookingDTO.getPassengerID()){
             Passenger passenger = passengerRepository.findById(pID).get();
             flight.addPassenger(passenger);
         }
