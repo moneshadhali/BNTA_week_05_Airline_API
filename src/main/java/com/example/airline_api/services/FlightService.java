@@ -5,6 +5,7 @@ import com.example.airline_api.models.BookingDTO;
 import com.example.airline_api.models.Passenger;
 import com.example.airline_api.repositories.FlightRepository;
 import com.example.airline_api.repositories.PassengerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class FlightService {
         return flightRepository.save(flight);
     }
 
+    @Transactional
     public Flight addPassengerToFlight(BookingDTO bookingDTO, Long id) {
         Flight flight = flightRepository.findById(id).get();
         for (Long pID : bookingDTO.getPassengerID()){
